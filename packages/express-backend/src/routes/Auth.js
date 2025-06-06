@@ -53,7 +53,7 @@ router.delete("/settings", async (req, res) => {
 
     // Account somehow does not exist
     if (!existingUser) {
-      return res.status(409).json({ error: "Error: Account does not exist." });
+      return res.status(409).json({ error: "Account does not exist." });
     }
 
     // Proceed if everything is correct
@@ -91,13 +91,13 @@ router.post("/login", async (req, res) => {
     else {
       return res
         .status(401)
-        .json({ error: "Error: Incorrect email or password." });
+        .json({ error: "Invalid password. Please try again." });
     }
   }
 
   // Invalid email, unauthoried
   else {
-    res.status(401).json({ error: "Error: Account not found." });
+    res.status(401).json({ error: "Error: Account does not exist." });
   }
 });
 

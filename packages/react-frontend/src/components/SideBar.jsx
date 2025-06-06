@@ -50,6 +50,7 @@ const SideBar = ({ onEventCreated, events, onFilterChange }) => {
   // Fetch all unique flags from events
   useEffect(() => {
     const fetchFlags = async () => {
+      console.log("Fetching flags...");
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(`${API_URL}events/flags`, {
@@ -57,25 +58,27 @@ const SideBar = ({ onEventCreated, events, onFilterChange }) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        
+      
         if (response.ok) {
           const data = await response.json();
           setAvailableFlags(data.flags || []);
         } else {
-          // Fallback: extract flags from events if API endpoint doesn't exist
+          console.warn("Fallback: extracting flags from local events.");
           const extractedFlags = extractFlagsFromEvents(events);
           setAvailableFlags(extractedFlags);
         }
       } catch (error) {
         console.error('Error fetching flags:', error);
-        // Fallback: extract flags from events
         const extractedFlags = extractFlagsFromEvents(events);
         setAvailableFlags(extractedFlags);
       }
     };
-
-    fetchFlags();
-  }, [events]); // Re-fetch when events change
+  
+    // 🚀 Only refresh when modal closes (after event created/edited)
+    if (!isModalOpen) {
+      fetchFlags();
+    }
+  }, [isModalOpen]);  // 🚀 THIS — no "events" here
 
   // Handle filter selection
   const handleFilterClick = (flag) => {

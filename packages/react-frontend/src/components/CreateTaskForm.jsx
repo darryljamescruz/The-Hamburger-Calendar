@@ -89,7 +89,15 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       // TODO: for task, should there be a time deadline for the task or just a date?
       // Task event
       newEvent.date_created = new Date();
-      newEvent.deadline = new Date(`${deadline}T${time}`);
+      // Safe deadline assignment
+      if (deadline && time) {
+        newEvent.deadline = new Date(`${deadline}T${time}`);
+      } else if (deadline) {
+        // fallback — date only
+        newEvent.deadline = new Date(deadline);
+      } else {
+        newEvent.deadline = null; // explicit clear
+      }
       newEvent.in_progress = inProgress;
       newEvent.completed = false;
     } else if (eventType === "Academic") {

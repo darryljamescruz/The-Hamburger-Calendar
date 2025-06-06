@@ -45,7 +45,7 @@ describe("Acceptance Tests", () => {
 
     // Sign in (should be unsuccessful)
     cy.contains("button", "Sign in").last().click();
-    cy.contains("Invalid email or password.");
+    cy.contains("Error: Account does not exist.");
 
     // Return back to sign-in page (just in case)
     cy.visit("http://localhost:8000/login");
@@ -66,7 +66,7 @@ describe("Acceptance Tests", () => {
 
     // Sign in (should be unsuccessful)
     cy.contains("button", "Sign in").last().click();
-    cy.contains("Invalid email or password.");
+    cy.contains("Invalid password. Please try again.");
 
     // Return back to sign-in page (just in case)
     cy.visit("http://localhost:8000/login");
@@ -136,7 +136,7 @@ describe("Acceptance Tests", () => {
 
     // Sign up (should be unsuccessful)
     cy.contains("button", "Sign up").last().click();
-    cy.contains("Email already exists. Try a different one.");
+    cy.contains("Error: Email already taken.");
 
     // Return back to sign-in page (just in case)
     cy.visit("http://localhost:8000/register");
@@ -166,7 +166,7 @@ describe("Acceptance Tests", () => {
     // Sign up (should be unsuccessful)
     cy.contains("button", "Sign up").last().click();
     cy.contains(
-      "Password must be at least 8 characters long, and contain an uppercase letter, lowercase letter, number, and special character."
+      "Password must be between 8 and 32 characters, contain an uppercase character, a lowercase character, a number, and a special character."
     );
 
     // Return back to sign-in page (just in case)
@@ -197,35 +197,28 @@ describe("Acceptance Tests", () => {
 
     // Sign up (should be unsuccessful)
     cy.contains("button", "Sign up").last().click();
-    cy.contains("Double check that your passwords match.");
+    cy.contains("Error: Password and confirmed password don't match.");
 
     // Return back to sign-in page (just in case)
     cy.visit("http://localhost:8000/register");
 
     // Now delete account
-    cy.origin(
-      "https://hamburgers-calendar-h0cpb6f7bbczfyae.westus2-01.azurewebsites.net",
-      () => {
-        cy.visit("/login");
+    cy.visit("http://localhost:8000/login");
 
-        cy.get(".mt-2 input").first().type("test@email.com");
-        cy.get(".mt-2 input").first().should("have.value", "test@email.com");
+    cy.get(".mt-2 input").first().type("test@email.com");
+    cy.get(".mt-2 input").first().should("have.value", "test@email.com");
 
-        cy.get(".mt-2 input").last().type("Testpassword123*");
-        cy.get(".mt-2 input").last().should("have.value", "Testpassword123*");
+    cy.get(".mt-2 input").last().type("Testpassword123*");
+    cy.get(".mt-2 input").last().should("have.value", "Testpassword123*");
 
-        // Sign in
-        cy.contains("button", "Sign in").last().click();
-        cy.url().should("include", "/month");
+    // Sign in
+    cy.contains("button", "Sign in").last().click();
+    cy.url().should("include", "/month");
 
-        // Navigate to settings page
-        cy.visit(
-          "https://hamburgers-calendar-h0cpb6f7bbczfyae.westus2-01.azurewebsites.net/settings"
-        );
+    // Navigate to settings page
+    cy.visit("http://localhost:8000/settings");  // use relative path when running local!
 
-        cy.contains("button", "Delete Account").first().click();
-        cy.contains("button", "Confirm Delete").first().click();
-      }
-    );
+    cy.contains("button", "Delete Account").first().click();
+    cy.contains("button", "Confirm Delete").first().click();
   });
 });
