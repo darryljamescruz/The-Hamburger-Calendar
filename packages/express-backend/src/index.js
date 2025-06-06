@@ -19,8 +19,8 @@ try {
   // TODO: needs to be changed to the build folder
   //const staticDir = path.join(__dirname, '../../react-frontend/build');
   //const staticDir = path.join(__dirname, '../react-frontend/build');
-  const staticDir = path.join(__dirname, "../build"); // not ../react-frontend/build
-  console.log("Index.js will serve static files from:", staticDir);
+  // const staticDir = path.join(__dirname, "../../react-frontend/dist"); // not ../react-frontend/build
+  // console.log("Index.js will serve static files from:", staticDir);
 
   app.use(cors());
   app.use(express.json());
@@ -33,12 +33,12 @@ try {
   app.use("/api/events", eventRoutes);
 
   // Serve static files from the React frontend app
-  app.use(express.static(staticDir));
+  // app.use(express.static(staticDir));
 
   // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(staticDir, "index.html"));
-  });
+  // app.get("*", (req, res) => {
+  //   res.sendFile(path.resolve(staticDir, "index.html"));
+  // });
 
   const PORT = process.env.PORT || 8000;
   app.listen(PORT, () => {
