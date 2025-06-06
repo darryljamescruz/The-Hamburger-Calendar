@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
-import { API_URL } from "../config";
+import { API_URL } from "./utils/api";
 import "../styles/Settings.css";
 
 const Settings = ({ setDisplayName }) => {

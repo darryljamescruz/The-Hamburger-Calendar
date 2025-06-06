@@ -4,7 +4,7 @@
 // and have the same data
 
 import { useState, useEffect } from 'react';
-import { API_URL } from '../config'; 
+import { API_URL } from "./utils/api";
 
 export default function useEvents() {
   const [events, setEvents] = useState([]);

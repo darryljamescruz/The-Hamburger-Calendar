@@ -1,6 +1,6 @@
 // src/components/SideBar.jsx
 import React, { useState, useRef, useEffect } from "react";
-import { API_URL } from "../config"; 
+import { API_URL } from "./utils/api";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
 import PropTypes from "prop-types";
