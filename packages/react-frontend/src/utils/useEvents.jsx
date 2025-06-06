@@ -4,6 +4,7 @@
 // and have the same data
 
 import { useState, useEffect } from 'react';
+import { API_URL } from '../config'; 
 
 export default function useEvents() {
   const [events, setEvents] = useState([]);
@@ -15,7 +16,7 @@ export default function useEvents() {
   const fetchEvents = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("/api/events", {
+      const response = await fetch(`${API_URL}/events`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

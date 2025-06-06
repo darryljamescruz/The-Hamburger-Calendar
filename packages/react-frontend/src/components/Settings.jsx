@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
+import { API_URL } from "../config";
 import "../styles/Settings.css";
 
 const Settings = ({ setDisplayName }) => {
@@ -106,7 +107,7 @@ const Settings = ({ setDisplayName }) => {
       return;
     }
     try {
-      const response = await fetch(`api/auth/change-password`, {
+      const response = await fetch(`${API_URL}/auth/change-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -148,7 +149,7 @@ const Settings = ({ setDisplayName }) => {
   async function deleteAccount() {
     const email = localStorage.getItem("email");
     try {
-      const response = await fetch(`api/auth/settings`, {
+      const response = await fetch(`${API_URL}/auth/settings`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

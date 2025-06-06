@@ -2,6 +2,7 @@ import { set } from "mongoose";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../utils/api";
 // import { prependOnceListener } from "../../../../express-backend/src/models/user";
 
 export default function SignupPage() {
@@ -66,7 +67,7 @@ export default function SignupPage() {
         password: password,
         confirmPassword: confirmPassword,
       };
-      const response = await fetch(`/api/auth/register`, {
+      const response = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

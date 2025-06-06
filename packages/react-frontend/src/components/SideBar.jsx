@@ -1,5 +1,6 @@
 // src/components/SideBar.jsx
 import React, { useState, useRef, useEffect } from "react";
+import { API_URL } from "../config"; 
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
 import PropTypes from "prop-types";
@@ -51,7 +52,7 @@ const SideBar = ({ onEventCreated, events, onFilterChange }) => {
     const fetchFlags = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch('/api/events/flags', {
+        const response = await fetch(`${API_URL}/events/flags`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

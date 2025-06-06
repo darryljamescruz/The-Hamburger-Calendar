@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from '../utils/api';
 import "../styles/CreateTaskForm.css";
 import PropTypes from "prop-types";
 
@@ -114,8 +115,8 @@ const CreateTaskForm = ({ onSubmit, onCancel, initialEvent }) => {
       console.log("Method chosen:", method, "for event");
 
       const url = initialEvent
-        ? `/api/events/${initialEvent._id}`
-        : '/api/events';
+        ? `${API_URL}/events/${initialEvent._id}`
+        :  `${API_URL}/events`;
       const response = await fetch(url, {
         method,
         headers: {

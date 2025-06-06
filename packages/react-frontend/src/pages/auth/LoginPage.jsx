@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_URL } from "../../config";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -57,7 +58,7 @@ export default function LoginPage() {
         password: password,
         confirmPassword: password, // irrelevant in this scenario; making it the same for simplicity
       };
-      const response = await fetch(`/api/auth/login`, {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

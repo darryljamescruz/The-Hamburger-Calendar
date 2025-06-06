@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { API_URL } from "../config";
 import Modal from "./Modal";
 import CreateTaskForm from "./CreateTaskForm";
 import "../styles/CurrentDayView.css";
@@ -24,7 +25,7 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`/api/events/${id}`, {
+      const response = await fetch(`${API_URL}/events/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
