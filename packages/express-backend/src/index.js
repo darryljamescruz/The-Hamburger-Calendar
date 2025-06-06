@@ -22,7 +22,11 @@ try {
   // const staticDir = path.join(__dirname, "../../react-frontend/dist"); // not ../react-frontend/build
   // console.log("Index.js will serve static files from:", staticDir);
 
-  app.use(cors());
+  app.use(cors({
+   origin: 'https://hamburgers-calendar.netlify.app', // netlify frontend url build
+   credentials: true
+  }));  
+  
   app.use(express.json());
 
   // connect to Mongo -> called in config/db.js
