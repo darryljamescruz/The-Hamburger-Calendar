@@ -23,7 +23,7 @@ try {
   // console.log("Index.js will serve static files from:", staticDir);
 
   app.use(cors({
-   origin: 'https://hamburgers-calendar.netlify.app', // netlify frontend url build
+   origin: 'https://the-hamburger-calendar.onrender.com/',
    credentials: true
   }));  
   
