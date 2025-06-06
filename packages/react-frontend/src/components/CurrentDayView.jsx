@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { API_URL } from "./utils/api";
+import { API_URL } from "../utils/api.js";
 import Modal from "./Modal";
 import CreateTaskForm from "./CreateTaskForm";
 import "../styles/CurrentDayView.css";
