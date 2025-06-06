@@ -1,5 +1,6 @@
 // src/components/WeekCalendar.jsx
 import React, { useState, useEffect } from "react";
+import { API_URL } from "../utils/api.js";
 import WelcomeMessage from "./WelcomeMessage";
 import EventInfoModal from "./EventInfoModal";
 import Modal from "./Modal";
@@ -26,7 +27,7 @@ const WeekCalendarView = ({ initialSelectedDay, events, refreshEvents, onDaySele
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`/api/events/${id}`, {
+      const response = await fetch(`${API_URL}events/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

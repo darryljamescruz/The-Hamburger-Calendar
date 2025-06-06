@@ -107,7 +107,7 @@ const Settings = ({ setDisplayName }) => {
       return;
     }
     try {
-      const response = await fetch(`${API_URL}/auth/change-password`, {
+      const response = await fetch(`${API_URL}auth/change-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -149,7 +149,7 @@ const Settings = ({ setDisplayName }) => {
   async function deleteAccount() {
     const email = localStorage.getItem("email");
     try {
-      const response = await fetch(`${API_URL}/auth/settings`, {
+      const response = await fetch(`${API_URL}auth/settings`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -25,7 +25,7 @@ const CurrentDayView = ({ selectedDay, events, refreshEvents }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${API_URL}/events/${id}`, {
+      const response = await fetch(`${API_URL}events/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

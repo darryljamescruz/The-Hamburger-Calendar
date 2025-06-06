@@ -16,7 +16,7 @@ export default function useEvents() {
   const fetchEvents = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${API_URL}/events`, {
+      const response = await fetch(`${API_URL}events`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

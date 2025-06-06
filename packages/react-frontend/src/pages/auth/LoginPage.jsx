@@ -58,7 +58,7 @@ export default function LoginPage() {
         password: password,
         confirmPassword: password, // irrelevant in this scenario; making it the same for simplicity
       };
-      const response = await fetch(`${API_URL}/auth/login`, {
+      const response = await fetch(`${API_URL}auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function LoginPage() {
 
   async function getUserData() {
     try {
-      const response = await fetch(`${API_URL}/auth/${email}`, {
+      const response = await fetch(`${API_URL}auth/${email}`, {
         method: "GET",
       });
 

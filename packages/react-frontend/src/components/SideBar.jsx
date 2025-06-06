@@ -52,7 +52,7 @@ const SideBar = ({ onEventCreated, events, onFilterChange }) => {
     const fetchFlags = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${API_URL}/events/flags`, {
+        const response = await fetch(`${API_URL}events/flags`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
