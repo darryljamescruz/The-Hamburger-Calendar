@@ -94,41 +94,55 @@ router.get("/", authenticateUser, async (req, res) => {
 // Add this route to your events routes file (probably in routes/events.js or similar)
 
 // // GET /api/events/flags - Get all unique flags for the authenticated user
-// router.get('/flags', authenticateUser, async (req, res) => {
-//   try {
-//     const userId = req.user.userId;
+router.get('/flags', authenticateUser, async (req, res) => {
+  try {
+    const email = req.user.email;
 
-//     // Get all events for the user and extract unique flags
-//     const events = await Event.find({ userId: userId });
+    // Find the user and their calendars + events
+    const user = await User.findOne({ email }).populate({
+      path: "calendars",
+      populate: {
+        path: "events",
+      },
+    });
 
-//     const flagSet = new Set();
+    if (!user || user.calendars.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: "User or calendars not found.",
+      });
+    }
 
-//     events.forEach(event => {
-//       if (event.flags && Array.isArray(event.flags)) {
-//         event.flags.forEach(flag => {
-//           if (flag && typeof flag === 'string' && flag.trim()) {
-//             flagSet.add(flag.trim());
-//           }
-//         });
-//       }
-//     });
+    // Collect flags only from this user's events
+    const flagSet = new Set();
 
-//     const uniqueFlags = Array.from(flagSet).sort();
+    user.calendars.forEach((calendar) => {
+      calendar.events.forEach((event) => {
+        if (event.flags && Array.isArray(event.flags)) {
+          event.flags.forEach((flag) => {
+            if (flag && typeof flag === "string" && flag.trim()) {
+              flagSet.add(flag.trim());
+            }
+          });
+        }
+      });
+    });
 
-//     res.json({
-//       success: true,
-//       flags: uniqueFlags,
-//       count: uniqueFlags.length
-//     });
+    const uniqueFlags = Array.from(flagSet).sort();
 
-//   } catch (error) {
-//     console.error('Error fetching flags:', error);
-//     res.status(500).json({
-//       success: false,
-//       error: 'Failed to fetch flags'
-//     });
-//   }
-// });
+    res.json({
+      success: true,
+      flags: uniqueFlags,
+      count: uniqueFlags.length,
+    });
+  } catch (error) {
+    console.error("Error fetching flags:", error);
+    res.status(500).json({
+      success: false,
+      error: "Failed to fetch flags",
+    });
+  }
+});
 
 // Delete event data
 router.delete("/:id", authenticateUser, async (req, res) => {
