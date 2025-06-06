@@ -82,7 +82,7 @@ export default function LoginPage() {
 
   async function getUserData() {
     try {
-      const response = await fetch(`/api/auth/${email}`, {
+      const response = await fetch(`${API_URL}/auth/${email}`, {
         method: "GET",
       });
 
