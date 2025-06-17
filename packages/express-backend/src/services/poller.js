@@ -6,7 +6,7 @@ const POLL_INTERVAL = 1 * 60 * 1000; // 1 minute
 const subjectMessage = "Event Reminder";
 
 // used to send timed emails to remind users of upcoming events
-async function pollReminders() {
+export async function pollReminders() {
   console.log("✅ Polling for reminders is active"); // so we know it's working
 
   const now = new Date();
@@ -31,8 +31,8 @@ async function pollReminders() {
   }
 }
 
-// Run every 5 minutes
-setInterval(pollReminders, POLL_INTERVAL);
-
-// Also run immediately when the server starts
-pollReminders();
+// Also run immediately when the server starts (not for tests)
+if (process.env.NODE_ENV !== "test") {
+  setInterval(pollReminders, POLL_INTERVAL); // Run every 1 minute
+  pollReminders();
+}
